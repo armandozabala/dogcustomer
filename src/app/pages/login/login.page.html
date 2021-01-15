@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="auth-bg">
+    <div class="auth-content">
+
+      <div class="light-bg">
+
+        <!-- Logo -->
+        <div class="ion-padding ion-text-center">
+          <div class="logo primary-bg">
+            <ion-icon name="car-sport-outline" color="light"></ion-icon>
+          </div>
+          <ion-text color="dark">
+            <h2>Firebase Taxi</h2>
+            <p>Firebase taxi booking app</p>
+          </ion-text>
+        </div>
+
+        <!-- Login form -->
+
+        <ion-list class="list-form ion-padding">
+
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="email" placeholder="Email or username"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="password" [(ngModel)]="password" placeholder="Password"></ion-input>
+          </ion-item>
+
+        </ion-list>
+
+        <div class="ion-padding">
+          <ion-button expand="block" color="primary" (click)="login()">Login</ion-button>
+       
+        </div>
+
+      </div>
+
+      <div class="ion-padding"></div>
+
+      <!-- Other links -->
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-text color="light">Forgot password?</ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text color="light">
+              New here?
+              <ion-text color="primary" [routerLink]="'/register'">Sign up</ion-text>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+  </div>
+</ion-content>
+

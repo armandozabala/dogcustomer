@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title>User</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Cover and profile picture -->
+  <div class="driver-top primary-bg ion-text-center ion-padding" *ngIf="user">
+    <div class="driver-picture">
+      <img class="profile-picture circle" src="{{ user.photoURL }}" (click)="chooseFile()">
+      <form ngNoForm>
+        <input id="avatar" name="file" type="file" (change)="upload()">
+      </form>
+    </div>
+    <ion-text color="light">
+      <h2>{{ user.name }}</h2>
+    </ion-text>
+  </div>
+
+  <!-- User information -->
+  <ion-list class="list-full-border" *ngIf="user">
+
+    <ion-item>
+      <ion-label position="stacked" color="primary">Name</ion-label>
+      <ion-input type="text" [(ngModel)]="user.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked" color="primary">Phone</ion-label>
+      <ion-input type="text" [(ngModel)]="user.phoneNumber"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked" color="primary">Email</ion-label>
+      <ion-input type="text" [(ngModel)]="user.email" disabled></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <div class="ion-padding">
+    <ion-button expand="block" color="primary" (click)="save()">Save</ion-button>
+  </div>
+
+</ion-content>

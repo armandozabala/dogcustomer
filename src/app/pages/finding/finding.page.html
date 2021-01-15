@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Finding you a driver</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="primary-bg">
+    <!-- Green circle with marker icon in the center -->
+    <div class="ion-padding ion-text-center">
+      <div class="location-animation circle">
+        <ion-icon name="pin" color="light"></ion-icon>
+      </div>
+    </div>
+
+    <ion-text color="light" class="ion-text-center" [hidden]="driver.length">
+      <h2>No driver found</h2>
+    </ion-text>
+
+    <ion-list class="list-drivers ion-padding" lines="none">
+      <ion-item *ngFor="let d of driver; let i = index">
+        <span>{{ d.name }}</span>
+
+        <img src="./assets/img/loading.gif" alt="" [hidden]="i" slot="end">
+        <!-- <span slot="end" [hidden]="!i">
+        Waiting
+      </span> -->
+      </ion-item>
+    </ion-list>
+
+    <div class="align-bottom ion-padding">
+      <ion-button class="border-button" expand="block" color="primary" routerLink="/home" [hidden]="driver.length">
+        TRY AGAIN
+      </ion-button>
+    </div>
+  </div>
+
+</ion-content>

@@ -1,54 +1,55 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Platform } from "@ionic/angular";
+import { SplashScreen } from "@ionic-native/splash-screen/ngx";
+import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { AuthService } from "./services/auth.service";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { take } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+  selector: "app-root",
+  templateUrl: "app.component.html",
+  styleUrls: ["app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
+      title: "Home",
+      url: "/home",
+      icon: "home",
     },
     {
-      title: 'Outbox',
-      url: '/folder/Outbox',
-      icon: 'paper-plane'
+      title: "History",
+      url: "/trips",
+      icon: "time",
     },
     {
-      title: 'Favorites',
-      url: '/folder/Favorites',
-      icon: 'heart'
+      title: "Card setting",
+      url: "/card-setting",
+      icon: "card",
     },
     {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
+      title: "Notification",
+      url: "/notification",
+      icon: "notifications",
     },
     {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
+      title: "User",
+      url: "/user",
+      icon: "help-circle",
     },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
-    }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  user = {};
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private authService: AuthService,
+    private afAuth: AngularFireAuth,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -57,13 +58,25 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      // check for login stage, then redirect
+      this.afAuth.authState.pipe(take(1)).subscribe((authData) => {
+        if (authData) {
+          this.router.navigateByUrl("/home");
+          this.user = authData;
+        } else {
+          this.router.navigateByUrl("/login");
+        }
+      });
     });
   }
 
-  ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
+  ngOnInit() {}
+
+  // logout
+  logout() {
+    this.authService.logout().then(() => {
+      this.router.navigateByUrl("/login");
+    });
   }
 }

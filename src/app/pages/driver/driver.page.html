@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Driver found</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="driver-top primary-bg light ion-text-center">
+    <div class="driver-picture">
+      <img class="circle" src="{{ (driver)?.photoURL }}" alt="" />
+    </div>
+
+    <ion-text class="ion-no-margin">
+      <h3>{{ (driver)?.name }} </h3>
+    </ion-text>
+    <div class="stars" *ngIf="driver">
+      <ion-icon name="star" color="warning" *ngFor="let star of range((driver)?.rating)"></ion-icon>
+      <ion-icon name="star-outline" color="medium" *ngFor="let star of range(4.9 - (driver)?.rating)"></ion-icon>
+    </div>
+    <div>
+      {{ (driver)?.plate }} &middot; {{ (driver)?.brand }}
+    </div>
+  </div>
+
+  <div class="dark-bg ion-padding">
+    <ion-text color="light" class="pull-left">
+      Fare: <strong>{{(trip)?.currency }}{{(trip)?.fee }}</strong>
+    </ion-text>
+    <ion-icon color="light" class="pull-right" name="logo-usd"></ion-icon>
+    <div class="clear"></div>
+  </div>
+
+  <ion-list class="address-block" lines="none">
+    <ion-item>
+      <div slot="start" class="ion-text-center">
+        <span class="round"></span>
+      </div>
+      <div>{{ (trip)?.origin.vicinity }}</div>
+    </ion-item>
+    <ion-item>
+      <div slot="start" class="ion-text-center">
+        <ion-icon name="navigate-circle" color="danger"></ion-icon>
+      </div>
+      <div>{{ (trip)?.destination.vicinity }}</div>
+    </ion-item>
+  </ion-list>
+
+  <div class="align-bottom ion-padding">
+    <ion-button expand="block" color="primary" [routerLink]="'/tracking'">Next</ion-button>
+  </div>
+
+</ion-content>

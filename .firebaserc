@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "iofirestore-41518": {
+      "hosting": {
+        "app": [
+          "iofirestore-41518"
+        ]
+      }
+    }
+  }
+}

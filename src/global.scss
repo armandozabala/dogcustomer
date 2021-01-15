@@ -8,19 +8,216 @@
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
-
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
-
 /* Basic CSS for apps built with Ionic */
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
 @import '~@ionic/angular/css/display.css';
-
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+// position
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.rlt {
+    position: relative;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+.primary-bg {
+    background-color: var(--ion-color-primary);
+}
+
+.light-bg {
+    background-color: var(--ion-color-primary-contrast);
+}
+
+.dark-bg {
+    background-color: var(--ion-color-dark);
+}
+
+.common-bg {
+    background-color: var(--ion-color-light-tint);
+}
+
+.light {
+    color: var(--ion-color-light);
+}
+
+.black-transparent {
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--ion-color-white);
+}
+
+// text style
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.text-hint {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.modal-bg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.round {
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+// position
+.align-bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.list-no-border {
+
+    .item:first-child {
+        border: none;
+    }
+
+    .item:last-child {
+        border: none;
+    }
+
+    .item-inner {
+        border: none;
+    }
+}
+
+.list-full-border {
+    @extend .list-no-border;
+
+    .item,
+    .item:first-child {
+        border-bottom: 1px solid var(--ion-color-border-color);
+
+        .item-inner {
+            border: none;
+        }
+    }
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+// side menu
+.menu-left {
+    img.profile-picture {
+        width: 7em;
+        height: 7em;
+        margin-top: 0.75em;
+        border-radius: 50%;
+    }
+}
+
+// auth page
+.logo {
+    margin: 20px auto 0;
+    width: 1.8em;
+    padding-top: 0.4em;
+    padding-bottom: 0.2em;
+    border-radius: 10%;
+    font-size: 2.5em;
+}
+
+.auth-bg {
+    width: 100%;
+    height: 100%;
+    padding-top: 40px;
+    background: url("./assets/img/bg2.jpg") no-repeat center;
+    background-size: 100% 100%;
+
+    .auth-content {
+        width: 86%;
+        margin-left: 7%;
+
+        .light-bg {
+
+            // keep only bottom border
+            .item-input {
+                margin: 0;
+                padding-left: 0;
+                border: none;
+                border-bottom: 1px solid #DDD;
+
+                .item-inner {
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+// common style
+a {
+    text-decoration: none;
+}
+
+.stars {
+
+    ion-icon {
+        margin-right: 3px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.address-block {
+    margin-bottom: 2px;
+    border-radius: 3px;
+    background: url('./assets/img/dot_bg.png') var(--ion-color-primary-contrast);
+    background-position: -4px;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+
+    &.ios {
+        background-position: 5px;
+    }
+
+    ion-item {
+        --background: transparent;
+    }
+
+    .round {
+        display: block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--ion-color-danger);
+    }
+}

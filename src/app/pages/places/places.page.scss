@@ -1,0 +1,16 @@
+ion-list {
+    padding: 5px;
+
+    ion-item {
+        margin-top: 5px;
+        border: 1px solid var(--ion-color-light-shade);
+
+        .item-inner {
+            border: none;
+        }
+
+        .item-icon-label {
+            font-size: 10px;
+        }
+    }
+}

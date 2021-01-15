@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Places</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openMap()">
+        <ion-icon name="map"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-searchbar #searchbar [(ngModel)]="keyword" (ionChange)="search($event)"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+
+  <div id="{{ mapId }}" style="height: 0"></div>
+  <ion-list lines="none">
+    <ion-item *ngFor="let place of places" (click)="selectPlace(place)">
+      <div class="ion-text-center" slot="start">
+        <ion-icon name="navigate-circle-outline"></ion-icon>
+        <div class="item-icon-label">
+          {{ calcDistance(place) }} km
+        </div>
+      </div>
+      <ion-label>
+        <div class="bold">{{ place.name }}</div>
+        <span>{{ place.vicinity }}</span>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

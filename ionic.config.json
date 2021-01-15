@@ -1,5 +1,7 @@
 {
   "name": "dogcustomer",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
