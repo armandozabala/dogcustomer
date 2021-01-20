@@ -23,10 +23,10 @@ export class DealService {
   async makeDeal(
     driverId,
     origin,
-    destination,
-    distance,
-    fee,
-    currency,
+    //destination,
+    //distance,
+    //fee,
+    //currency,
     note,
     paymentMethod
   ) {
@@ -34,11 +34,11 @@ export class DealService {
     const user: any = await this.authService.getUserData();
     return this.db.object("deals/" + driverId).set({
       passengerId: user.uid,
-      currency,
+      //currency,
       origin,
-      destination,
-      distance,
-      fee,
+      //destination,
+      //distance,
+      //fee,
       note,
       paymentMethod,
       status: DEAL_STATUS_PENDING,

@@ -15,6 +15,9 @@ import { AngularFireStorage } from "@angular/fire/storage";
 export class UserPage implements OnInit {
   user = {
     photoURL: "",
+    name: "",
+    phoneNumber: "",
+    email: ""
   };
 
   constructor(

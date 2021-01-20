@@ -19,6 +19,7 @@ import {
   ScreenTrackingService,
 } from "@angular/fire/analytics";
 import { IonicStorageModule } from '@ionic/storage';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,8 +30,8 @@ import { IonicStorageModule } from '@ionic/storage';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAnalyticsModule,
     AngularFireDatabaseModule,
-    AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     AppRoutingModule,
     IonicStorageModule.forRoot(),
   ],

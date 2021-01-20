@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title>Edit Pets</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+
+  
+  <div class="driver-top primary-bg ion-text-center ion-padding" *ngIf="pets">
+    <div class="driver-picture">
+      <img class="profile-picture circle" src="{{ pets.photoURL }}" (click)="chooseFile()">
+      <form ngNoForm>
+        <input id="avatar" name="file" type="file" (change)="upload()">
+      </form>
+    </div>
+ 
+  </div>
+
+
+    <ion-list class="list-full-border"  *ngIf="pets">
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Name</ion-label>
+        <ion-input type="text" [(ngModel)]="pets.name"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="stacked" color="primary">Age</ion-label>
+        <ion-input type="number" [(ngModel)]="pets.age"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="stacked" color="primary">Raza</ion-label>
+        <ion-input type="text" [(ngModel)]="pets.raza"></ion-input>
+      </ion-item>
+    </ion-list>
+  
+    <div class="ion-padding">
+      <ion-button expand="block" color="primary" (click)="update()">Save</ion-button>
+    </div>
+  
+
+</ion-content>

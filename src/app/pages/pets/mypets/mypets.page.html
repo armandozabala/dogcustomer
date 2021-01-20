@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title>My Pets</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+<ion-content>
+
+ 
+
+
+
+    <ion-item *ngFor="let pet of petsList" (click)="getPet(pet)">
+      <ion-thumbnail slot="end">
+        <img class="avatar" [src]="pet?.photoURL"/>
+      </ion-thumbnail>
+      <ion-label>
+        <h2 class="titulo">{{pet.name}}</h2>
+        <p class="subtitulo">{{ pet.age}}</p>
+        <p>{{ pet.raza}}</p>
+      </ion-label>
+    </ion-item>
+ 
+
+
+  
+
+
+
+</ion-content>

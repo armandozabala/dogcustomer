@@ -18,7 +18,7 @@
 
   <!--Choose origin and destination places-->
   <div class="map-overlay">
-    <ion-list class="card address-block" lines="none">
+   <!--  <ion-list class="card address-block" lines="none">
       <ion-item (click)="chooseOrigin()" lines="inset">
         <div slot="start" class="ion-text-center">
           <span class="round"></span>
@@ -31,7 +31,7 @@
         </div>
         <div>{{ destination ? destination.vicinity : '' }}</div>
       </ion-item>
-    </ion-list>
+    </ion-list>-->
 
     <ion-grid class="common-bg" [hidden]="!destination">
       <ion-row>
@@ -58,18 +58,20 @@
   </div>
 
   <div class="align-bottom ion-padding" [hidden]="showModalBg">
-    <div class="vehicle-collapsed round" *ngFor="let vehicle of vehicles">
+    
+    
+    <!-- <div class="vehicle-collapsed round" *ngFor="let vehicle of vehicles">
       <div class="bg light-bg round" *ngIf="vehicle.active"></div>
       <ion-item class="vehicle" *ngIf="vehicle.active" (click)="toggleVehicles()" lines="none">
         <img src="assets/img/icon/{{ vehicle.icon }}.svg" alt="" slot="start">
         <span class="name">{{ vehicle.name }}</span>
         <span class="fee" slot="end">{{ currency }}{{ vehicle.fee }}</span>
       </ion-item>
-    </div>
+    </div>-->
 
-    <ion-button expand="block" color="primary" [hidden]="destination" (click)="chooseDestination()">CHOOSE YOUR DROP-OFF
-    </ion-button>
-    <ion-button expand="block" color="primary" [hidden]="!destination" (click)="book()">BOOK</ion-button>
+    <!-- <ion-button expand="block" color="primary" [hidden]="destination" (click)="chooseDestination()">CHOOSE YOUR DROP-OFF
+    </ion-button>-->
+    <ion-button expand="block" color="primary"  (click)="book()">BOOK</ion-button>
   </div>
 
 </ion-content>

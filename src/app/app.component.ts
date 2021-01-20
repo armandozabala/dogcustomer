@@ -21,13 +21,13 @@ export class AppComponent implements OnInit {
       icon: "home",
     },
     {
-      title: "History",
-      url: "/trips",
+      title: "Create Pet",
+      url: "/create",
       icon: "time",
     },
     {
-      title: "Card setting",
-      url: "/card-setting",
+      title: "Pets",
+      url: "/mypets",
       icon: "card",
     },
     {

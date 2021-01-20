@@ -63,10 +63,10 @@ export class FindingPage implements OnInit {
               await this.dealService.makeDeal(
                 this.driver[0].id,
                 this.tripService.getOrigin(),
-                this.tripService.getDestination(),
-                this.tripService.getDistance(),
-                this.tripService.getFee(),
-                this.tripService.getCurrency(),
+                //this.tripService.getDestination(),
+                //this.tripService.getDistance(),
+                //this.tripService.getFee(),
+                //this.tripService.getCurrency(),
                 this.tripService.getNote(),
                 this.tripService.getPaymentMethod()
               );

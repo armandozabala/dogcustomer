@@ -210,13 +210,17 @@ export class HomePage implements OnInit {
 
             // calculate price
             this.vehicles = [];
+            
+
+            console.log(obj.vehicles);
+
             Object.keys(obj.vehicles).forEach((id) => {
               obj.vehicles[id].id = id;
               this.vehicles.push(obj.vehicles[id]);
             });
 
             // google map direction service
-            if (this.destination) {
+            /*if (this.destination) {
               directionService.route(
                 {
                   origin: new google.maps.LatLng(
@@ -238,15 +242,17 @@ export class HomePage implements OnInit {
                   }
                 }
               );
-            }
+            }*/
 
             // set first device as default
             this.vehicles[0].active = true;
             this.currentVehicle = this.vehicles[0];
 
-            this.locality = locality;
-            this.trackDrivers();
+        
+              this.locality = locality;
+          this.trackDrivers();
           });
+        
         }
       });
 
@@ -306,8 +312,8 @@ export class HomePage implements OnInit {
   book() {
     // store detail
     this.tripService.setAvailableDrivers(this.activeDrivers);
-    this.tripService.setDistance(this.distance);
-    this.tripService.setFee(this.currentVehicle.fee);
+    /*this.tripService.setDistance(this.distance);
+    this.tripService.setFee(this.currentVehicle.fee);*/
     this.tripService.setIcon(this.currentVehicle.icon);
     this.tripService.setNote(this.note);
     // this.tripService.setPaymentMethod('');
@@ -389,6 +395,7 @@ export class HomePage implements OnInit {
   // show drivers on map
   showDriverOnMap(locality) {
     // get active drivers
+    
     this.driverService
       .getActiveDriver(locality, this.currentVehicle.id)
       .pipe(take(1))
@@ -411,6 +418,8 @@ export class HomePage implements OnInit {
             this.origin.location.lng
           );
 
+          console.log(distance);
+
           if (
             distance < SHOW_VEHICLES_WITHIN &&
             Date.now() - vehicle.last_active < VEHICLE_LAST_ACTIVE_LIMIT
@@ -428,7 +437,7 @@ export class HomePage implements OnInit {
                   this.currentVehicle.icon +
                   angle +
                   ".png",
-                size: new google.maps.Size(32, 32),
+                size: new google.maps.Size(55, 55),
                 origin: new google.maps.Point(0, 0),
                 anchor: new google.maps.Point(16, 16),
                 scaledSize: new google.maps.Size(32, 32),

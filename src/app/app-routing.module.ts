@@ -54,7 +54,20 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'create',
+    loadChildren: () => import('./pages/pets/create/create.module').then( m => m.CreatePageModule)
+  },
+  {
+    path: 'mypets',
+    loadChildren: () => import('./pages/pets/mypets/mypets.module').then( m => m.MypetsPageModule)
+  },
+  {
+    path: 'update',
+    loadChildren: () => import('./pages/pets/update/update.module').then( m => m.UpdatePageModule)
   }
+
 ];
 
 @NgModule({
