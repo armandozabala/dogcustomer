@@ -60,14 +60,15 @@ export class FindingPage implements OnInit {
             if (!snapshot) {
               // create a record
               // console.log(snapshot);
+              debugger
               await this.dealService.makeDeal(
                 this.driver[0].id,
                 this.tripService.getOrigin(),
-                //this.tripService.getDestination(),
+                this.tripService.getPets(),
                 //this.tripService.getDistance(),
                 //this.tripService.getFee(),
                 //this.tripService.getCurrency(),
-                this.tripService.getNote(),
+                //this.tripService.getNote(),
                 this.tripService.getPaymentMethod()
               );
               console.log("Deal made");

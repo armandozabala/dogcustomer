@@ -17,6 +17,7 @@ export class TripService {
   private note: string;
   private paymentMethod: any = "cash";
   private vehicle: any;
+  private pets:any;
   // vehicle's icon
   private icon: any;
   private availableDrivers: Array<any> = [];
@@ -80,6 +81,15 @@ export class TripService {
   getFee() {
     return this.fee;
   }
+
+  setPets(pets){
+    return (this.pets = pets);
+  }
+
+  getPets() {
+    return this.pets;
+  }
+
 
   setNote(note) {
     return (this.note = note);

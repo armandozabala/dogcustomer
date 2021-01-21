@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { TripService } from 'src/app/services/trip.service';
 import { HomePage } from '../../home/home.page';
 import { MapPage } from '../../map/map.page';
 import { MypetsPage } from '../../pets/mypets/mypets.page';
@@ -24,7 +25,10 @@ export class CrearPaseosPage implements OnInit {
     address: 'Address'
   };
 
+  activeDrivers:any;
+
   constructor(public route: ActivatedRoute,
+              public tripService: TripService,
               private router: Router,
               public modalController: ModalController) { }
 
@@ -88,8 +92,18 @@ export class CrearPaseosPage implements OnInit {
     this.data.petId = this.pet.petId;
     this.data.latitude = this.address.lat;
     this.data.longitude = this.address.lng;
+    this.activeDrivers = this.address.activeDrivers;
 
+    
     console.log(this.data);
+    console.log(this.address.activeDrivers);
+
+    this.tripService.setAvailableDrivers(this.activeDrivers);
+    this.tripService.setPets(this.data.petId);
+    /*this.tripService.setDistance(this.distance);
+    this.tripService.setFee(this.currentVehicle.fee);*/
+    //this.tripService.setIcon(this.currentVehicle.icon);
+    ///this.tripService.setNote(this.note);
 
     this.router.navigateByUrl("/finding");
 

@@ -316,7 +316,7 @@ export class HomePage implements OnInit {
     /*this.tripService.setDistance(this.distance);
     this.tripService.setFee(this.currentVehicle.fee);*/
     this.tripService.setIcon(this.currentVehicle.icon);
-    this.tripService.setNote(this.note);
+    //this.tripService.setNote(this.note);
     // this.tripService.setPaymentMethod('');
 
     // go to finding page
@@ -468,7 +468,8 @@ export class HomePage implements OnInit {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
     this.modalController.dismiss({
-       pet
+       pet,
+       
     });
   }
 }
