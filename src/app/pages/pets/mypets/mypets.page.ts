@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { NavigationExtras, Router } from '@angular/router';
-import { ToastController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController, ModalController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { DEFAULT_AVATAR } from 'src/app/services/constants';
@@ -22,26 +22,29 @@ export class MypetsPage implements OnInit {
     // loading object
     loading: any;
   
-  constructor(private storage: AngularFireStorage,
+  constructor(
+    private storage: AngularFireStorage,
     private petsService: PetsService,
     public router: Router,
     public toastCtrl: ToastController,
     public authService: AuthService,
+    public modalController: ModalController,
     public loadingCtrl: LoadingController ) { 
 
-   
+      this.getData();
      
     }
 
   ngOnInit() {
-    this.getData();
+    
   
   }
 
 
   async getData() {
-    const loggedInUser: any = await this.authService.getUserData();
-    this.authService
+    this.user  = await this.authService.getUserData();
+    this.getPets();
+    /*this.authService
       .getUser(loggedInUser.uid)
       .pipe(take(1))
       .subscribe((snapshot: any) => {
@@ -49,7 +52,7 @@ export class MypetsPage implements OnInit {
         this.user = snapshot;
         console.log(this.user);
         this.getPets();
-      });
+      });*/
   }
 
 
@@ -70,11 +73,14 @@ export class MypetsPage implements OnInit {
 
     let navigationExtras: NavigationExtras = {
       queryParams: {
-          id: pet.petId
+          id: pet.petId,
+          pets: pet
       }
   };
-    this.router.navigate(['update'], navigationExtras);
+   // this.router.navigate(['update'], navigationExtras);
     
+    this.dismiss(pet);
+
   }
 
   async showLoading() {
@@ -90,4 +96,11 @@ export class MypetsPage implements OnInit {
   }
 
 
+  dismiss(pet:any) {
+    // using the injected ModalController this page
+    // can "dismiss" itself and optionally pass back data
+    this.modalController.dismiss({
+       pet
+    });
+  }
 }

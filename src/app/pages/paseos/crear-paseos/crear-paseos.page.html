@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title> Paseo </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <h3> Add your Pets </h3>
+  <p> Pets </p>
+  <ion-button expand="block" fill="outline" (click)="openPets()"> Mascotas </ion-button>
+
+  <div *ngIf="pet">
+    <div class="driver-top ion-text-center ion-padding">
+      <div class="driver-picture">
+        <img class="profile-picture circle med" src="{{ pet.photoURL }}">
+      </div>
+      <ion-text color="primary">
+        <h2>{{ pet.name }}</h2>
+      </ion-text>
+      <ion-text color="primary">
+        <p>{{ pet.age }}</p>
+      </ion-text>
+    </div>
+  </div>
+
+  <div>
+    <h3>Que dias quieres un paseo ?</h3>
+
+    <ion-radio-group value="hoy" (ionChange)="getOpc($event)">
+
+      <div  style="display: flex;">
+       <!-- <div class="btn-padding">
+          <ion-label style="margin-right: 5px;">Semanal</ion-label>
+          <ion-radio slot="start" value="semanal"></ion-radio>
+        </div> -->
+    
+        <div class="btn-padding">
+          <ion-label style="margin-right: 5px;">Solo por hoy</ion-label>
+          <ion-radio slot="start" value="hoy"></ion-radio>
+        </div>
+      </div>
+
+  
+
+    </ion-radio-group>
+
+  </div>
+
+ <div>
+   
+  <div  *ngIf="opc == 'hoy'">
+    <h2> Hoy </h2>
+
+  
+    <ion-item>
+      <ion-label>Hora</ion-label>
+      <ion-datetime [(ngModel)]="data.hora"  displayFormat="h:mm a"></ion-datetime>
+    </ion-item>
+
+      <ion-item (click)="openLocation()">
+        <ion-input [(ngModel)]="data.address"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input [(ngModel)]="data.descripcion" placeholder="Descripción (Nota)"></ion-input>
+      </ion-item>
+
+  </div>
+
+  <div  *ngIf="opc == 'semanal'">
+    <h2> Semana </h2>
+      <p> ok </p>
+  </div>
+ </div>
+
+
+ <ion-button expand="block"  (click)="solicitarPaseo()"> Solicitar Paseo </ion-button>
+
+
+
+</ion-content>

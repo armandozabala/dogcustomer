@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
       // check for login stage, then redirect
       this.afAuth.authState.pipe(take(1)).subscribe((authData) => {
         if (authData) {
-          this.router.navigateByUrl("/home");
+          this.router.navigateByUrl("/main"); //home
           this.user = authData;
         } else {
           this.router.navigateByUrl("/login");

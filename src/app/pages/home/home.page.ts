@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { AlertController, LoadingController } from "@ionic/angular";
+import { AlertController, LoadingController, ModalController } from "@ionic/angular";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 
 
@@ -87,7 +87,8 @@ export class HomePage implements OnInit {
     public loadingCtrl: LoadingController,
     public settingService: SettingService,
     public tripService: TripService,
-    public driverService: DriverService
+    public driverService: DriverService,
+    public modalController: ModalController
   ) {}
 
   ngOnInit() {}
@@ -460,6 +461,14 @@ export class HomePage implements OnInit {
     this.activeDrivers = [];
     this.driverMarkers.forEach((vehicle) => {
       vehicle.setMap(null);
+    });
+  }
+
+  dismiss(pet:any) {
+    // using the injected ModalController this page
+    // can "dismiss" itself and optionally pass back data
+    this.modalController.dismiss({
+       pet
     });
   }
 }

@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
     try {
       await this.authService.login(this.email, this.password);
       loading.dismiss();
-      this.router.navigateByUrl("/home");
+      this.router.navigateByUrl("/main");
     } catch (error) {
       // in case of login error
       await loading.dismiss();

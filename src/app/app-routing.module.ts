@@ -66,7 +66,23 @@ const routes: Routes = [
   {
     path: 'update',
     loadChildren: () => import('./pages/pets/update/update.module').then( m => m.UpdatePageModule)
+  },  {
+    path: 'main',
+    loadChildren: () => import('./pages/main/main.module').then( m => m.MainPageModule)
+  },
+  {
+    path: 'crear',
+    loadChildren: () => import('./pages/paseos/crear/crear.module').then( m => m.CrearPageModule)
+  },
+  {
+    path: 'crear-paseos',
+    loadChildren: () => import('./pages/paseos/crear-paseos/crear-paseos.module').then( m => m.CrearPaseosPageModule)
+  },
+  {
+    path: 'map',
+    loadChildren: () => import('./pages/map/map.module').then( m => m.MapPageModule)
   }
+
 
 ];
 
