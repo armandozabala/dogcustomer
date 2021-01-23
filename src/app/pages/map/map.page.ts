@@ -13,37 +13,39 @@ import { TripService } from 'src/app/services/trip.service';
 declare var google: any;
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.page.html',
-  styleUrls: ['./map.page.scss'],
+  selector: "app-map",
+  templateUrl: "./map.page.html",
+  styleUrls: ["./map.page.scss"],
 })
 export class MapPage implements OnInit {
   map: any;
-
+  // loading object
+  loading: any;
   // active drivers list
   activeDrivers: Array<any> = [];
   // pin address
   address: any;
 
-    // user tracking interval
-    driverTracking: any;
+  // user tracking interval
+  driverTracking: any;
   // marker position on screen
   markerFromTop = 0;
   markerFromLeft = 0;
 
-    // origin and destination
-    origin: any;
-    destination: any;
+  // origin and destination
+  origin: any;
+  destination: any;
 
   // current vehicle type
   currentVehicle: any;
-    vehicles: any = [];
-    
-      // currency
-  currency: string;
 
   // current locality
   locality: any;
+  vehicles: any = [];
+
+  // currency
+  currency: string;
+
   // list of user markers on the map
   driverMarkers: Array<any> = [];
 
@@ -58,33 +60,32 @@ export class MapPage implements OnInit {
     public loadingCtrl: LoadingController,
     public settingService: SettingService,
     public driverService: DriverService
-  ) {
-  }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   // Load map only after view is initialized
   ionViewDidEnter() {
     this.origin = this.tripService.getOrigin();
     this.loadMap();
-    
+
     // set marker position in center of screen
     // minus marker's size
     this.markerFromTop = window.screen.height / 2 - 16;
     this.markerFromLeft = window.screen.width / 2 - 8;
   }
 
-  
-
-
   async loadMap() {
+    await this.showLoading();
     // set current location as map center
     try {
       const resp: any = await this.geolocation.getCurrentPosition();
-      const latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+      const latLng = new google.maps.LatLng(
+        resp.coords.latitude,
+        resp.coords.longitude
+      );
 
-      this.map = new google.maps.Map(document.getElementById('map'), {
+      this.map = new google.maps.Map(document.getElementById("map"), {
         zoom: 16,
         center: latLng,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -94,7 +95,6 @@ export class MapPage implements OnInit {
 
       // get center's address
       this.findPlace(latLng);
-
 
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({ latLng: this.map.getCenter() }, (results, status) => {
@@ -110,7 +110,7 @@ export class MapPage implements OnInit {
             //this.setOrigin();
             this.chRef.detectChanges();
           } else {
-           // this.setOrigin();
+            // this.setOrigin();
           }
 
           // save locality
@@ -126,7 +126,6 @@ export class MapPage implements OnInit {
 
             // calculate price
             this.vehicles = [];
-            
 
             console.log(obj.vehicles);
 
@@ -164,41 +163,38 @@ export class MapPage implements OnInit {
             this.vehicles[0].active = true;
             this.currentVehicle = this.vehicles[0];
 
-        
-              this.locality = locality;
+            this.locality = locality;
             this.trackDrivers();
           });
-        
         }
       });
-      
-      
 
-
-      this.map.addListener('center_changed', (event) => {
+      this.map.addListener("center_changed", (event) => {
         const center = this.map.getCenter();
         this.findPlace(center);
       });
+
+      this.hideLoading();
+      
     } catch (e) {
-      console.log('Error getting location', e);
+      console.log("Error getting location", e);
     }
   }
 
+  // track drivers
+  trackDrivers() {
+    this.showDriverOnMap(this.locality);
+    clearInterval(this.driverTracking);
 
-    // track drivers
-    trackDrivers() {
+    this.driverTracking = setInterval(() => {
       this.showDriverOnMap(this.locality);
-      clearInterval(this.driverTracking);
-  
-      this.driverTracking = setInterval(() => {
-        this.showDriverOnMap(this.locality);
-      }, POSITION_INTERVAL);
-    }
+    }, POSITION_INTERVAL);
+  }
 
-     // show drivers on map
+  // show drivers on map
   showDriverOnMap(locality) {
     // get active drivers
-    
+
     this.driverService
       .getActiveDriver(locality, this.currentVehicle.id)
       .pipe(take(1))
@@ -208,7 +204,7 @@ export class MapPage implements OnInit {
         // clear vehicles
         this.clearDrivers();
         // only show near vehicle
-        actions.forEach((action:any) => {
+        actions.forEach((action: any) => {
           const vehicle: any = { id: action.key, ...action.payload.val() };
 
           console.log(vehicle);
@@ -252,36 +248,35 @@ export class MapPage implements OnInit {
             this.driverMarkers.push(marker);
             this.activeDrivers.push(vehicle);
           } else {
-             console.log('This vehicle is too far');
+            console.log("This vehicle is too far");
           }
         });
       });
   }
 
+  // add origin marker to map
+  setOrigin() {
+    // add origin and destination marker
+    const latLng = new google.maps.LatLng(
+      this.origin.location.lat,
+      this.origin.location.lng
+    );
+    // tslint:disable-next-line:no-unused-expression
+    new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: latLng,
+      icon: "assets/img/pin.png",
+    });
 
-    // add origin marker to map
-    setOrigin() {
-      // add origin and destination marker
-      const latLng = new google.maps.LatLng(
-        this.origin.location.lat,
-        this.origin.location.lng
-      );
-      // tslint:disable-next-line:no-unused-expression
-      new google.maps.Marker({
-        map: this.map,
-        animation: google.maps.Animation.DROP,
-        position: latLng,
-        icon: "assets/img/pin.png",
-      });
-  
-      // set map center to origin address
-      this.map.setCenter(latLng);
-    }
+    // set map center to origin address
+    this.map.setCenter(latLng);
+  }
 
   // find address by LatLng
   findPlace(latLng) {
     const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({latLng}, (results, status) => {
+    geocoder.geocode({ latLng }, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
         this.address = results[0];
         this.chRef.detectChanges();
@@ -293,34 +288,51 @@ export class MapPage implements OnInit {
   selectPlace() {
     const address = this.placeService.formatAddress(this.address);
 
-    if (this.activatedRoute.snapshot.paramMap.get('type') === 'origin') {
-      this.tripService.setOrigin(address.vicinity, address.location.lat, address.location.lng);
+    if (this.activatedRoute.snapshot.paramMap.get("type") === "origin") {
+      this.tripService.setOrigin(
+        address.vicinity,
+        address.location.lat,
+        address.location.lng
+      );
     } else {
-      this.tripService.setDestination(address.vicinity, address.location.lat, address.location.lng);
+      this.tripService.setDestination(
+        address.vicinity,
+        address.location.lat,
+        address.location.lng
+      );
     }
 
     this.dismiss(this.address, this.activeDrivers);
     //this.router.navigateByUrl('/home');
   }
 
+  // clear expired drivers on the map
+  clearDrivers() {
+    this.activeDrivers = [];
+    this.driverMarkers.forEach((vehicle) => {
+      vehicle.setMap(null);
+    });
+  }
 
-    // clear expired drivers on the map
-    clearDrivers() {
-      this.activeDrivers = [];
-      this.driverMarkers.forEach((vehicle) => {
-        vehicle.setMap(null);
-      });
-    }
-
-  dismiss(address:any, activeDrivers:any) {
-    
+  dismiss(address: any, activeDrivers: any) {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
     this.modalController.dismiss({
-       activeDrivers: activeDrivers,
-       address: address.formatted_address,
-       lat: this.address.geometry.location.lat(),
-       lng: this.address.geometry.location.lng()
+      activeDrivers: activeDrivers,
+      address: address.formatted_address,
+      lat: this.address.geometry.location.lat(),
+      lng: this.address.geometry.location.lng(),
     });
+  }
+
+  async showLoading() {
+    this.loading = await this.loadingCtrl.create({
+      message: "Please wait geolocating...",
+    });
+    await this.loading.present();
+  }
+
+  hideLoading() {
+    this.loading.dismiss();
   }
 }
