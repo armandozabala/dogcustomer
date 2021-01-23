@@ -101,7 +101,7 @@ export class TrackingPage implements OnInit {
 
     await modal.present();
     await modal.onWillDismiss();
-    this.router.navigateByUrl("/home");
+    this.router.navigateByUrl("/main");
   }
 
   loadMap() {
@@ -178,9 +178,9 @@ export class TrackingPage implements OnInit {
           map: this.map,
           position: latLng,
           icon: {
-            url:
-              "assets/img/icon/" + this.tripService.getIcon() + angle + ".png",
-            size: new google.maps.Size(32, 32),
+            url: 
+              "assets/img/icon/sedan"+ angle + ".png",
+            size: new google.maps.Size(55, 55),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(16, 16),
             scaledSize: new google.maps.Size(32, 32),

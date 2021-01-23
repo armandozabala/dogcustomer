@@ -127,7 +127,7 @@ export class MapPage implements OnInit {
             // calculate price
             this.vehicles = [];
 
-            console.log(obj.vehicles);
+            
 
             Object.keys(obj.vehicles).forEach((id) => {
               obj.vehicles[id].id = id;
@@ -161,6 +161,7 @@ export class MapPage implements OnInit {
 
             // set first device as default
             this.vehicles[0].active = true;
+            console.log(this.vehicles[0]);
             this.currentVehicle = this.vehicles[0];
 
             this.locality = locality;
@@ -175,7 +176,7 @@ export class MapPage implements OnInit {
       });
 
       this.hideLoading();
-      
+
     } catch (e) {
       console.log("Error getting location", e);
     }

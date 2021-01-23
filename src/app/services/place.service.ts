@@ -38,7 +38,7 @@ export class PlaceService {
   formatAddress(address) {
     // console.log(address);
     const components = address.address_components;
-    const vicinity = components[0].short_name + ", " + components[1].short_name;
+    const vicinity = address.formatted_address; //components[0].short_name + ", " + components[1].short_name;
 
     return {
       location: {

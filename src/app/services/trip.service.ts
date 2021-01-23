@@ -9,6 +9,7 @@ import { AngularFireDatabase } from "@angular/fire/database";
 export class TripService {
   private id: any;
   private trips: any;
+
   private currency: string;
   private origin: any;
   private destination: any;

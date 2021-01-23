@@ -80,6 +80,7 @@ export class CrearPaseosPage implements OnInit {
 
     const { data } = await modal.onWillDismiss();
     this.pet = data.pet;
+    this.tripService.setPets(this.pet);
     console.log(data);
   }
 
@@ -113,14 +114,6 @@ export class CrearPaseosPage implements OnInit {
         resp.coords.longitude
       );
 
-      /*this.map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 16,
-        center: latLng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        mapTypeControl: false,
-        zoomControl: false,
-      });*/
-
       // get center's address
       this.findPlace(latLng);
 
@@ -130,11 +123,14 @@ export class CrearPaseosPage implements OnInit {
           if (!this.origin) {
             // set map center as origin
             this.origin = this.placeService.formatAddress(results[0]);
+            
             this.tripService.setOrigin(
               this.origin.vicinity,
               this.origin.location.lat,
               this.origin.location.lng
             );
+
+
             //this.setOrigin();
             this.chRef.detectChanges();
           } else {
@@ -161,31 +157,6 @@ export class CrearPaseosPage implements OnInit {
               obj.vehicles[id].id = id;
               this.vehicles.push(obj.vehicles[id]);
             });
-
-            // google map direction service
-            /*if (this.destination) {
-              directionService.route(
-                {
-                  origin: new google.maps.LatLng(
-                    this.origin.location.lat,
-                    this.origin.location.lng
-                  ),
-                  destination: new google.maps.LatLng(
-                    this.destination.location.lat,
-                    this.destination.location.lng
-                  ),
-                  travelMode: "DRIVING",
-                },
-                (result) => {
-                  this.distance = result.routes[0].legs[0].distance.value;
-
-                  for (const vehicle of this.vehicles) {
-                    vehicle.fee = (this.distance * vehicle.price) / 1000;
-                    vehicle.fee = vehicle.fee.toFixed(2);
-                  }
-                }
-              );
-            }*/
 
             // set first device as default
             this.vehicles[0].active = true;
@@ -231,6 +202,7 @@ export class CrearPaseosPage implements OnInit {
         this.clearDrivers();
         // only show near vehicle
         actions.forEach((action: any) => {
+
           const vehicle: any = { id: action.key, ...action.payload.val() };
 
           console.log(vehicle);
@@ -273,6 +245,9 @@ export class CrearPaseosPage implements OnInit {
             vehicle.distance = distance;
             this.driverMarkers.push(marker);
             this.activeDrivers.push(vehicle);
+            
+            console.log("Carros Activos ", this.activeDrivers);
+
           } else {
             console.log("This vehicle is too far");
           }
@@ -309,7 +284,7 @@ export class CrearPaseosPage implements OnInit {
     console.log(this.activeDrivers);
 
     this.tripService.setAvailableDrivers(this.activeDrivers);
-    this.tripService.setPets(this.data.petId);
+    
     /*this.tripService.setDistance(this.distance);
     this.tripService.setFee(this.currentVehicle.fee);*/
     //this.tripService.setIcon(this.currentVehicle.icon);

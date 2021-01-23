@@ -23,7 +23,7 @@ export class DealService {
   async makeDeal(
     driverId,
     origin,
-    petsId,
+    pets,
     //distance,
     //fee,
     //currency,
@@ -34,7 +34,7 @@ export class DealService {
     const user: any = await this.authService.getUserData();
     return this.db.object("deals/" + driverId).set({
       passengerId: user.uid,
-      petsId: petsId,
+      pets: pets,
       origin,
       //destination,
       //distance,
