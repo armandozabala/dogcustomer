@@ -1,0 +1,41 @@
+.med {
+    width: 45%;
+}
+
+.btn-padding {
+    font-weight: 600;
+    font-size: 14px;
+    width: 100%;
+    margin: 10px;
+    padding: 5%;
+    border: 1px solid;
+    border-radius: 20px;
+    float: left;
+}
+
+.driver-top {
+    min-height: 200px;
+}
+
+
+
+.driver-picture {
+    min-height: 150px;
+    padding-top: 30px;
+
+    &>img {
+        width: 200px;
+        height: 200px;
+        border: 1px solid var(--ion-color-light);
+        background: var(--ion-color-light);
+        border-radius: 50%;
+    }
+}
+
+#avatar {
+    display: none;
+}
+
+.heart-red {
+    color: red;
+}

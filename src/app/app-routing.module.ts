@@ -81,6 +81,14 @@ const routes: Routes = [
   {
     path: 'map',
     loadChildren: () => import('./pages/map/map.module').then( m => m.MapPageModule)
+  },
+  {
+    path: 'walkerlist',
+    loadChildren: () => import('./pages/walkers/walkerlist/walkerlist.module').then( m => m.WalkerlistPageModule)
+  },
+  {
+    path: 'walker',
+    loadChildren: () => import('./pages/walkers/walker/walker.module').then( m => m.WalkerPageModule)
   }
 
 

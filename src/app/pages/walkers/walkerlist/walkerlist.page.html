@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title>Walker List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+    <ion-item *ngFor="let walk of walkerList" (click)="getWalker(walk)">
+      <ion-thumbnail slot="end">
+        <img class="avatar" [src]="walk?.photoURL" />
+      </ion-thumbnail>
+      <ion-label>
+        <h3 class="titulo">{{walk.name}}</h3>
+        <p class="subtitulo">{{ walk.refCode}}</p>
+        <div>
+          <p class="text-red"> {{ getCountLikes(walk.likes)}} </p>
+          <ion-icon size="small" class="heart-red" name="heart"></ion-icon>
+        </div>
+      </ion-label>
+    </ion-item>
+
+</ion-content>

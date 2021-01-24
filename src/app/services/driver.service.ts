@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "@angular/fire/database";
+import { take } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -10,6 +11,56 @@ export class DriverService {
   // get driver by id
   getDriver(id) {
     return this.db.object("drivers/" + id).valueChanges();
+  }
+
+  getDrivers() {
+    return this.db.list("drivers").valueChanges();
+  }
+
+  getLikes(driverId, userId) {
+   
+
+    /*return this.db
+      .object("drivers/" + driverId + "/likes/"+userId)
+      .valueChanges();*/
+  
+
+      return new Promise((resolve) => {
+      
+        this.db
+          .object("drivers/" + driverId + "/likes/" + userId)
+          .valueChanges()
+          .subscribe((authData) => {
+            resolve(authData);
+          });
+      });
+      /*return this.db
+        .list("drivers/likes", (ref) => ref.orderByChild(userId).equalTo(true))
+        .valueChanges();*/
+  }
+
+  setLike(id, userId, lista) {
+    let list = {};
+
+    list[userId] = true;
+ 
+    let likes = {};
+
+    likes = Object.assign(lista, list);
+
+  
+    return this.db.object("drivers/" + id ).update({
+      likes
+    });
+  }
+
+  unsetLike(id, userId, likes) {
+
+    delete likes[userId];
+
+    return this.db.object("drivers/" + id).update({
+      likes,
+    });
   }
 
   // get driver position

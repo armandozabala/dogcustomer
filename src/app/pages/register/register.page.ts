@@ -48,7 +48,7 @@ export class RegisterPage implements OnInit {
         this.phoneNumber
       );
       await loading.dismiss();
-      this.router.navigateByUrl("/home");
+      this.router.navigateByUrl("/main");
     } catch (error) {
       // in case of login error
       await loading.dismiss();

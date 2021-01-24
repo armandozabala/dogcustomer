@@ -14,6 +14,7 @@ import { TripService } from "src/app/services/trip.service";
 export class FindingPage implements OnInit {
   drivers: any;
   driver: any = [];
+  finding = true;
 
   constructor(
     public router: Router,
@@ -24,16 +25,36 @@ export class FindingPage implements OnInit {
     this.drivers = this.tripService.getAvailableDrivers();
     // sort by driver distance and rating
     this.drivers = this.dealService.sortDriversList(this.drivers);
+    this.finding = true;
+    
 
-    console.log(this.drivers);
 
-    if (this.drivers) {
-      // make deal to first user
-      this.makeDeal(0);
-    }
   }
 
-  ngOnInit() {}
+  ionViewDidLeave(){
+   this.finding = true;
+  }
+
+  ngOnInit() {
+
+        this.drivers = this.tripService.getAvailableDrivers();
+        // sort by driver distance and rating
+        this.drivers = this.dealService.sortDriversList(this.drivers);
+        this.finding = true;
+
+    console.log(this.drivers);
+ 
+    setTimeout(() => {
+      this.finding = false;
+      if (this.drivers) {
+        // make deal to first user
+        this.makeDeal(0);
+      }
+    }, 10000);
+ 
+  }
+
+ 
 
   // make deal to driver
   makeDeal(index) {

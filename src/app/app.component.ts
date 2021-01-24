@@ -16,6 +16,11 @@ import { Router } from "@angular/router";
 export class AppComponent implements OnInit {
   public appPages = [
     {
+      title: "Main",
+      url: "/main",
+      icon: "home",
+    },
+    {
       title: "Home",
       url: "/home",
       icon: "home",
@@ -26,13 +31,13 @@ export class AppComponent implements OnInit {
       icon: "time",
     },
     {
-      title: "Pets",
+      title: "My Pets",
       url: "/mypets",
       icon: "card",
     },
     {
-      title: "Notification",
-      url: "/notification",
+      title: "Walkers List",
+      url: "/walkerlist",
       icon: "notifications",
     },
     {
