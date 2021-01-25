@@ -27,7 +27,7 @@ export class FindingPage implements OnInit {
     this.drivers = this.dealService.sortDriversList(this.drivers);
     this.finding = true;
     
-
+this.findingCars();
 
   }
 
@@ -37,21 +37,29 @@ export class FindingPage implements OnInit {
 
   ngOnInit() {
 
-        this.drivers = this.tripService.getAvailableDrivers();
-        // sort by driver distance and rating
-        this.drivers = this.dealService.sortDriversList(this.drivers);
-        this.finding = true;
 
-    console.log(this.drivers);
- 
-    setTimeout(() => {
-      this.finding = false;
-      if (this.drivers) {
-        // make deal to first user
-        this.makeDeal(0);
-      }
-    }, 10000);
- 
+  }
+
+  ionViewDidLoad(){
+   this.findingCars();
+  }
+
+
+  findingCars() {
+            this.drivers = this.tripService.getAvailableDrivers();
+            // sort by driver distance and rating
+            this.drivers = this.dealService.sortDriversList(this.drivers);
+            this.finding = true;
+
+            console.log(this.drivers);
+
+            setTimeout(() => {
+              this.finding = false;
+              if (this.drivers) {
+                // make deal to first user
+                this.makeDeal(0);
+              }
+            }, 10000);
   }
 
  
